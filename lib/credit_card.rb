@@ -37,9 +37,9 @@ class CreditCard
     TYPES.keys.each do |t|
       case LENGTH_PER_TYPE[t.to_sym]
       when Fixnum
-        valid = true if @number.size == LENGTH_PER_TYPE[t.to_sym] and @number.to_s =~ TYPES[t.to_sym]
+        valid = true if @number.to_s.size == LENGTH_PER_TYPE[t.to_sym] and @number.to_s =~ TYPES[t.to_sym]
       when Array
-        valid = true if LENGTH_PER_TYPE[t.to_sym].include?(@number.size) and @number.to_s =~ TYPES[t.to_sym]
+        valid = true if LENGTH_PER_TYPE[t.to_sym].include?(@number.to_s.size) and @number.to_s =~ TYPES[t.to_sym]
       end
     end
 

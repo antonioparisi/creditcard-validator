@@ -33,7 +33,7 @@ How to use it:
 Insert any CCs, one per row. Eg: 4408041234567893
 Type 'x' or 'exit' for finish the process
 [*] > 4408041234567893
-[+] visa: 4408041234567893 (invalid)
+[+] visa: 4408041234567893 (valid)
 [*] > 4563 9601 9
 [+] unknown: 456396019 (invalid)
 [*] > exit
