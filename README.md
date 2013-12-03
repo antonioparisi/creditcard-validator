@@ -1,6 +1,6 @@
 CreditCard Validator
 ====================
-A pretty simple OO ruby lib used to check if a credit card number is valid or not.
+A pretty simple OO ruby lib used to check if a credit card number is valid or not, based on the [Luhn Algorithm](http://en.wikipedia.org/wiki/Luhn_algorithm)
 
 ```
 +============+=============+===============+
