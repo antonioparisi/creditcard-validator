@@ -2,17 +2,10 @@
 class CreditCard
 
   TYPES = {
-    :amex => /^3[47][0-9]{13}$/,
-    :discover => /^6011[0-9]{12}$/,
-    :mastercard => /^5[1-5][0-9]{14}$/,
-    :visa => /^4[0-9]{12}(?:[0-9]{3})?$/
-  }
-
-  LENGTH_PER_TYPE = {
-    :amex => 15,
-    :discover => 16,
-    :mastercard => 16,
-    :visa => [13, 16]
+    :amex => { :length => 15, :regex => /^3[47][0-9]{13}$/ },
+    :discover => { :length => 16, :regex => /^6011[0-9]{12}$/ },
+    :mastercard => { :length => 16, :regex => /^5[1-5][0-9]{14}$/ },
+    :visa => { :length => [13, 16], :regex => /^4[0-9]{12}(?:[0-9]{3})?$/ }
   }
 
   def initialize(number)
@@ -26,7 +19,7 @@ class CreditCard
   def type
     type = 'unknown'
     TYPES.keys.each do |t|
-      type = t.to_s if @number.to_s =~ TYPES[t.to_sym]
+      type = t.to_s if @number.to_s =~ TYPES[t.to_sym][:regex]
     end
 
     type
@@ -35,11 +28,11 @@ class CreditCard
   def check_size
     valid = false
     TYPES.keys.each do |t|
-      case LENGTH_PER_TYPE[t.to_sym]
+      case TYPES[t.to_sym][:length]
       when Fixnum
-        valid = true if @number.to_s.size == LENGTH_PER_TYPE[t.to_sym] and @number.to_s =~ TYPES[t.to_sym]
+        valid = true if @number.to_s.size == TYPES[t.to_sym][:length] and @number.to_s =~ TYPES[t.to_sym][:regex]
       when Array
-        valid = true if LENGTH_PER_TYPE[t.to_sym].include?(@number.to_s.size) and @number.to_s =~ TYPES[t.to_sym]
+        valid = true if TYPES[t.to_sym][:length].include?(@number.to_s.size) and @number.to_s =~ TYPES[t.to_sym][:regex]
       end
     end
 
