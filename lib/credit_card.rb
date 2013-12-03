@@ -20,7 +20,7 @@ class CreditCard
   end
 
   def number
-    return @number
+    @number
   end
 
   def type
@@ -29,7 +29,7 @@ class CreditCard
       type = t.to_s if @number.to_s =~ TYPES[t.to_sym]
     end
 
-    return type
+    type
   end
 
   def check_size
@@ -43,7 +43,7 @@ class CreditCard
       end
     end
 
-    return valid
+    valid
   end
 
   private

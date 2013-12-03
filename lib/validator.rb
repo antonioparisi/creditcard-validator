@@ -20,7 +20,7 @@ class Validator
       total.push(pt)
     end
 
-    return (total.inject(:+) % 10 == 0)
+    (total.inject(:+) % 10 == 0)
   end
 
   private
