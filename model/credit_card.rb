@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'debugger'
 class CreditCard
 
   TYPES = {
@@ -9,7 +10,7 @@ class CreditCard
   }
 
   def initialize(number)
-    @number = strip(number).to_i
+    @number = strip(number).to_s
   end
 
   def number
@@ -19,7 +20,7 @@ class CreditCard
   def type
     type = 'unknown'
     TYPES.keys.each do |t|
-      type = t.to_s if @number.to_s =~ TYPES[t.to_sym][:regex]
+      type = t.to_s if @number =~ TYPES[t.to_sym][:regex]
     end
 
     type
@@ -30,13 +31,31 @@ class CreditCard
     TYPES.keys.each do |t|
       case TYPES[t.to_sym][:length]
       when Fixnum
-        valid = true if @number.to_s.size == TYPES[t.to_sym][:length] and @number.to_s =~ TYPES[t.to_sym][:regex]
+        valid = true if @number.size == TYPES[t.to_sym][:length] and @number =~ TYPES[t.to_sym][:regex]
       when Array
-        valid = true if TYPES[t.to_sym][:length].include?(@number.to_s.size) and @number.to_s =~ TYPES[t.to_sym][:regex]
+        valid = true if TYPES[t.to_sym][:length].include?(@number.size) and @number =~ TYPES[t.to_sym][:regex]
       end
     end
 
     valid
+  end
+
+  def validate!
+    return false if !check_size
+
+    total = []
+    @number.reverse.chars.each_slice(2).each do |od, ev|
+      od = od.to_i
+      ev = ev.to_i
+
+      pt = (ev == 1 ? 2 : ev * 2)
+      pt = pt.to_s[0].to_i + pt.to_s[1].to_i if pt > 9
+
+      total.push(od)
+      total.push(pt)
+    end
+
+    (total.inject(:+) % 10 == 0)
   end
 
   private

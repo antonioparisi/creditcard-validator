@@ -1,4 +1,5 @@
 # encoding: UTF-8
+Dir["./model/**/*.rb"].each { |f| require f }
 Dir["./lib/**/*.rb"].each { |f| require f }
 
 puts 'Credit Card Validator using Luhn Algorithm'

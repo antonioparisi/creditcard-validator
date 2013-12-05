@@ -21,7 +21,7 @@ class Prompt
         exit
       else
         cc = CreditCard.new(input)
-        is_valid = Validator.new(cc).validate!
+        is_valid = cc.validate!
         output_cc(cc, is_valid)
     end
   end
